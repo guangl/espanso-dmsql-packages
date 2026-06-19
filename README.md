@@ -1,15 +1,16 @@
-# Espanso External Repo Template
+# espanso-dmsql-packages
 
-This is a template repository you can use as a starting point to host
-your Espanso packages outside the Hub.
+Espanso package repository for **DM Database (达梦数据库, DMSQL)** snippets.
 
-In general, this template should be used if you plan to share your packages
-privately, for example with your company's team.
+This repo hosts Espanso packages that you can add as a custom external
+repository to get SQL snippets for working with DM Database.
 
-If you plan to publish your packages publicly, we highly recommend
-publishing them inside the [Espanso Hub](https://github.com/espanso/hub) instead.
+## Packages
+
+- [`dmsql-package`](dmsql-package/) — SQL syntax, DM-specific functions/system
+  views, and DBA/admin command snippets for DM Database.
 
 ## Usage
 
-For more information about customizing the repository and using it, please
-visit the documentation: https://espanso.org/docs/next/packages/basics/
+For more information about hosting and using a custom Espanso package
+repository, see the documentation: https://espanso.org/docs/next/packages/basics/
