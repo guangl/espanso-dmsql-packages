@@ -1,0 +1,40 @@
+matches:
+  - trigger: :dmmemsql
+    label: 单个会话内存使用总量
+    replace: >
+      SELECT
+        A.CREATOR                          ,
+        B.SQL_TEXT                         ,
+        SUM(A.TOTAL_SIZE)/1024.0/1024.0 TOTAL_M,    --当前总量(包括扩展)
+        SUM(A.DATA_SIZE) /1024.0/1024.0 DATA_SIZE_M  --实际使用量
+      FROM
+        V$MEM_POOL A,
+        V$SESSIONS B
+      WHERE
+        A.CREATOR = B.THRD_ID
+      GROUP BY
+        A.CREATOR,
+        B.SQL_TEXT
+      ORDER BY
+        TOTAL_M DESC;
+
+  - trigger: :dmbuff
+    label: 如何判断BUFFER空闲还是紧张。1. 如果free很多说明该缓冲区很空闲，可以适当的调整降低buffer缓冲区参数值；2. 如果 free 项为 0，或者 N_DISCARD64 非零，表示该缓冲区经常淘汰。这种情况，就说明对应的缓冲区参数太小，导致频繁淘汰，需要调整对应的缓冲区的参数。
+    replace: >
+      SELECT
+        NAME,       --缓冲区名称
+        N_PAGES,    --页数
+        FREE,       --空闲页数目
+        N_DISCARD64 --淘汰的页数
+      FROM V$BUFFERPOOL;
+
+  - trigger: :dmmemtotal
+    label: 达梦内存总量
+    replace: >
+      SELECT
+        ( SELECT SUM(N_PAGES * PAGE_SIZE) / 1024 / 1024 FROM V$BUFFERPOOL ) || 'MB' AS BUFFER_SIZE,
+        ( SELECT SUM(TOTAL_SIZE) / 1024 / 1024 FROM V$MEM_POOL ) || 'MB' AS MEM_POOL,
+        ( SELECT SUM(N_PAGES * PAGE_SIZE) / 1024 / 1024 FROM V$BUFFERPOOL ) +( SELECT SUM(TOTAL_SIZE) / 1024 / 1024 FROM V$MEM_POOL ) || 'MB' AS TOTAL_SIZE
+      FROM DUAL;
+
+

@@ -1,5 +1,6 @@
 matches:
   - trigger: :dmcuser
+    label: 创建用户以及赋予权限
     replace: >
       CREATE USER \"$|$\" IDENTIFIED BY \"$|$\";
       GRANT DBA,RESOURCE,SOI,VIT TO \"$|$\";
