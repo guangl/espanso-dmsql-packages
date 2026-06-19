@@ -1,7 +1,7 @@
 matches:
   - trigger: :dmparam
     label: 查询系统参数值
-    replace: SELECT * FROM V$DM_INI WHER PARA_NAME LIKE '%$|$%';
+    replace: SELECT * FROM V$DM_INI WHERE PARA_NAME LIKE '%$|$%';
 
   - trigger: :dmver
     label: 查询数据库版本
