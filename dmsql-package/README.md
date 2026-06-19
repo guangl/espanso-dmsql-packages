@@ -2,37 +2,25 @@
 
 Espanso snippets for working with **DM Database** (达梦数据库, DMSQL), covering:
 
-- Common SQL syntax (`SELECT`, `INSERT`, `UPDATE`, `DELETE`, `JOIN`, `CREATE TABLE`, indexes, paging)
-- DM-specific functions and system views (`V$VERSION`, `V$INSTANCE`, `V$SESSIONS`, `V$LOCK`, `V$SQL`, `V$DM_INI`, `SYSDATE`, `ROWID`, `EXPLAIN`)
-- DBA/admin commands (users, grants, tablespaces, backup/restore, killing sessions, table size)
+- Session/事务管理 (active sessions, transaction blocking/wait)
+- 系统参数与版本查询 (`V$DM_INI`, version info)
+- DBA 操作 (creating users and granting privileges)
+- 备份 (full database backup)
+- 内存诊断 (per-session memory usage, buffer pressure, total memory)
+- 故障诊断 (deduplicated stack traces, cached/package execution plan dumps)
 
 ## Triggers
 
 | Trigger | Description |
 | --- | --- |
-| `:dmsel` | SELECT template |
-| `:dmins` | INSERT template |
-| `:dmupd` | UPDATE template |
-| `:dmdel` | DELETE template |
-| `:dmjoin` | JOIN template |
-| `:dmctab` | CREATE TABLE template |
-| `:dmidx` | CREATE INDEX template |
-| `:dmlimit` | SELECT with LIMIT |
-| `:dmpage` | SELECT with LIMIT/OFFSET paging |
-| `:dmver` | Query `V$VERSION` |
-| `:dminst` | Query `V$INSTANCE` |
-| `:dmsess` | Query `V$SESSIONS` |
-| `:dmlock` | Query `V$LOCK` |
-| `:dmsql` | Search `V$SQL` by text |
-| `:dmsysparam` | Query `V$DM_INI` parameter |
-| `:dmsysdate` | `SELECT SYSDATE FROM DUAL` |
-| `:dmrowid` | SELECT with `ROWID` |
-| `:dmexplain` | `EXPLAIN` statement |
-| `:dmcreateuser` | CREATE USER |
-| `:dmgrant` | GRANT privileges |
-| `:dmrevoke` | REVOKE privileges |
-| `:dmtbs` | CREATE TABLESPACE |
-| `:dmbackup` | BACKUP DATABASE |
-| `:dmrestore` | RESTORE DATABASE |
-| `:dmkilsess` | `SP_CLOSE_SESSION` |
-| `:dmtabsize` | Table size report |
+| `:dmsess` | 查看当前的活动会话 |
+| `:dmtwait` | 查看当前事物阻塞 |
+| `:dmparam` | 查询系统参数值 |
+| `:dmver` | 查询数据库版本 |
+| `:dmcuser` | 创建用户以及赋予权限 |
+| `:dmbackup` | 对数据库进行全量备份 |
+| `:dmmemsql` | 单个会话内存使用总量 |
+| `:dmbuff` | 判断 BUFFER 空闲还是紧张 |
+| `:dmmemtotal` | 达梦内存总量 |
+| `:dmpsp` | 去重堆栈 |
+| `:dmtrace` | 获取缓存计划/包计划 |
