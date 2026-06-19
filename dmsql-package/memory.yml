@@ -1,7 +1,7 @@
 matches:
   - trigger: :dmmemsql
     label: 单个会话内存使用总量
-    replace: >
+    replace: |
       SELECT
         A.CREATOR                          ,
         B.SQL_TEXT                         ,
@@ -20,7 +20,7 @@ matches:
 
   - trigger: :dmbuff
     label: 如何判断BUFFER空闲还是紧张。1. 如果free很多说明该缓冲区很空闲，可以适当的调整降低buffer缓冲区参数值；2. 如果 free 项为 0，或者 N_DISCARD64 非零，表示该缓冲区经常淘汰。这种情况，就说明对应的缓冲区参数太小，导致频繁淘汰，需要调整对应的缓冲区的参数。
-    replace: >
+    replace: |
       SELECT
         NAME,       --缓冲区名称
         N_PAGES,    --页数
@@ -30,7 +30,7 @@ matches:
 
   - trigger: :dmmemtotal
     label: 达梦内存总量
-    replace: >
+    replace: |
       SELECT
         ( SELECT SUM(N_PAGES * PAGE_SIZE) / 1024 / 1024 FROM V$BUFFERPOOL ) || 'MB' AS BUFFER_SIZE,
         ( SELECT SUM(TOTAL_SIZE) / 1024 / 1024 FROM V$MEM_POOL ) || 'MB' AS MEM_POOL,

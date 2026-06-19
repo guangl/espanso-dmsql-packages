@@ -4,7 +4,7 @@ matches:
     replace: "cat $ss|awk 'BEGIN { s=\"\"; }\n/^Thread/ { print s;s=\"\"; }\n/^#/ { if (s!=\"\"){ s=s\",\"$4} else { s=$4} }\nEND {print s}\n' | sort | uniq -c |sort -r -n -k 1,1"
 
   - trigger: :dmtrace
-    replace: >
+    replace: |
       1. 获取缓存计划的函数
       SELECT SF_TRACE_DUMP_PLN(CACHE_ITEM) FROM V$CACHEPLN WHERE SQLSTR LIKE '%SQL文本模糊匹配%';
       2. 获取包计划函数，如果想获取某包中具体方法的计划可使用

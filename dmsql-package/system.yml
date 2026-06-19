@@ -5,7 +5,7 @@ matches:
 
   - trigger: :dmver
     label: 查询数据库版本
-    replace: |-
+    replace: |
       SELECT
           ID_CODE,
           BUILD_TYPE,
