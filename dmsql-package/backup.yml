@@ -1,0 +1,3 @@
+matches:
+  - trigger: :dmbackup
+    replace: BACKUP DATABASE FULL BACKUPSET '$' COMPRESS LEVEL 1 PARALLEL 8;

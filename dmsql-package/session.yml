@@ -1,0 +1,6 @@
+matches:
+  - trigger: :dmsess
+    replace: SELECT DATEDIFF(SS,LAST_SEND_TIME,SYSDATE) SS,SF_GET_SESSION_SQL(SESS_ID),* FROM V$SESSIONS WHERE STATE <> 'IDLE' ORDER BY 1 DESC;
+
+  - trigger: :dmtwait
+    replace: SELECT * FROM V$TRXWAIT;
